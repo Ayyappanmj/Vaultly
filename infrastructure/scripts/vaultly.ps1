@@ -69,7 +69,7 @@ function Invoke-Test {
     $pythonCmd = Get-Command python -ErrorAction SilentlyContinue
     if ($pythonCmd) {
         Write-Host "Running Backend pytest..." -ForegroundColor Cyan
-        & $pythonCmd.Source -m pytest backend
+        & $pythonCmd.Source -m pytest -v backend/tests
     } else {
         Write-Host "Python not found in PATH." -ForegroundColor Red
     }
