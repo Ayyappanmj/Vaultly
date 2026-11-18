@@ -1,0 +1,40 @@
+name: Mobile (Flutter) CI
+
+on:
+  push:
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/flutter.yml'
+  pull_request:
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/flutter.yml'
+
+jobs:
+  analyze-and-test:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: mobile
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Analyze & Test
+        run: |
+          if [ -f "pubspec.yaml" ]; then
+            flutter pub get
+            flutter analyze
+            flutter test
+          else
+            echo "Flutter skeleton not yet generated in mobile/, skipping analyze and test"
+          fi

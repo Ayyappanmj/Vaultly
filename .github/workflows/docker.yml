@@ -1,0 +1,46 @@
+name: Docker Build CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - 'web/**'
+      - 'docker-compose.yml'
+      - 'docker-compose.prod.yml'
+      - '.github/workflows/docker.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - 'web/**'
+      - 'docker-compose.yml'
+      - 'docker-compose.prod.yml'
+      - '.github/workflows/docker.yml'
+
+jobs:
+  build-images:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Backend Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: false
+          tags: vaultly-backend:test
+
+      - name: Build Web Image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./web
+          push: false
+          tags: vaultly-web:test

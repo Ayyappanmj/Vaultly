@@ -1,0 +1,16 @@
+.env
+__pycache__/
+.venv/
+venv/
+node_modules/
+.next/
+build/
+.dart_tool/
+*.pyc
+pgdata/
+redisdata/
+storage_data/
+uploads/
+.pytest_cache/
+.ruff_cache/
+*.log
