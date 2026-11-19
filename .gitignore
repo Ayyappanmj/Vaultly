@@ -16,3 +16,4 @@ uploads/
 *.log
 *.db
 *.sqlite3
+.agent/
