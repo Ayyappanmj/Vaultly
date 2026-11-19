@@ -2,16 +2,13 @@ name: Mobile (Flutter) CI
 
 on:
   push:
-    paths:
-      - 'mobile/**'
-      - '.github/workflows/flutter.yml'
+    branches: [ master, main ]
   pull_request:
-    paths:
-      - 'mobile/**'
-      - '.github/workflows/flutter.yml'
+    branches: [ master, main ]
+  workflow_dispatch:
 
 jobs:
-  analyze-and-test:
+  build-and-test:
     runs-on: ubuntu-latest
 
     defaults:
@@ -22,26 +19,31 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.x'
+          flutter-version: '3.24.x'
           channel: 'stable'
           cache: true
 
-      - name: Analyze & Test
-        run: |
-          if [ -f "pubspec.yaml" ]; then
-            flutter pub get
-            flutter test || true
-            flutter build apk --release --no-tree-shake-icons || true
-          else
-            echo "Flutter skeleton not yet generated in mobile/, skipping analyze and test"
-          fi
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Run Flutter Tests
+        run: flutter test || true
+
+      - name: Build Android APK
+        run: flutter build apk --release --no-tree-shake-icons || flutter build apk --debug
 
       - name: Upload Android APK
         uses: actions/upload-artifact@v4
         with:
           name: Vaultly-Android-APK
-          path: mobile/build/app/outputs/flutter-apk/app-release.apk
-          if-no-files-found: ignore
+          path: mobile/build/app/outputs/flutter-apk/*.apk
+          if-no-files-found: warn

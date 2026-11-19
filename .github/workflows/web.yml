@@ -2,13 +2,10 @@ name: Web CI
 
 on:
   push:
-    paths:
-      - 'web/**'
-      - '.github/workflows/web.yml'
+    branches: [ master, main ]
   pull_request:
-    paths:
-      - 'web/**'
-      - '.github/workflows/web.yml'
+    branches: [ master, main ]
+  workflow_dispatch:
 
 jobs:
   build-and-lint:

@@ -2,22 +2,10 @@ name: Docker Build CI
 
 on:
   push:
-    branches:
-      - main
-    paths:
-      - 'backend/**'
-      - 'web/**'
-      - 'docker-compose.yml'
-      - 'docker-compose.prod.yml'
-      - '.github/workflows/docker.yml'
+    branches: [ master, main ]
   pull_request:
-    branches:
-      - main
-    paths:
-      - 'backend/**'
-      - 'web/**'
-      - 'docker-compose.yml'
-      - 'docker-compose.prod.yml'
+    branches: [ master, main ]
+  workflow_dispatch:
       - '.github/workflows/docker.yml'
 
 jobs:
