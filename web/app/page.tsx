@@ -110,14 +110,14 @@ export default function DashboardOverviewPage() {
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Monthly Subscriptions</p>
           <div className="flex items-baseline justify-between">
             <span className="text-2xl font-bold text-slate-900">
-              ${subAnalytics?.total_monthly_spend?.toFixed(2) || "0.00"}
+              ${Number(subAnalytics?.total_monthly_spend || 0).toFixed(2)}
             </span>
             <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 font-medium">
               {subAnalytics?.total_active_count || 0} active
             </span>
           </div>
           <p className="text-xs text-slate-400">
-            ${subAnalytics?.total_annual_spend?.toFixed(2) || "0.00"} normalized/year
+            ${Number(subAnalytics?.total_annual_spend || 0).toFixed(2)} normalized/year
           </p>
         </div>
 
@@ -148,7 +148,7 @@ export default function DashboardOverviewPage() {
         <div className="p-5 bg-white border border-slate-200 rounded-xl shadow-xs space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Vaulted Receipts</p>
           <div className="flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-slate-900">${totalReceiptsSpend.toFixed(2)}</span>
+            <span className="text-2xl font-bold text-slate-900">${Number(totalReceiptsSpend || 0).toFixed(2)}</span>
             <span className="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium">
               {receipts.length} items
             </span>
