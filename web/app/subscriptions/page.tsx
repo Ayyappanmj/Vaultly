@@ -47,7 +47,7 @@ export default function SubscriptionsPage() {
         api.getSubscriptions(filter === "ALL" ? undefined : filter),
         api.getSubscriptionAnalytics(),
       ]);
-      setSubscriptions(subRes.items || subRes || []);
+      setSubscriptions(Array.isArray(subRes) ? subRes : (subRes?.items || []));
       setAnalytics(anaRes);
     } catch (err: any) {
       setError(err.message || "Failed to load subscriptions");

@@ -25,7 +25,8 @@ export default function NotificationsPage() {
     setError(null);
     try {
       const data = await api.getNotifications(unreadOnly);
-      setNotifications(data || []);
+      const items = Array.isArray(data) ? data : (data?.items || []);
+      setNotifications(items);
     } catch (err: any) {
       setError(err.message || "Failed to load notifications");
     } finally {

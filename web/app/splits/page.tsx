@@ -49,7 +49,7 @@ export default function SplitsPage() {
     setError(null);
     try {
       const data = await api.getHouseholds();
-      setHouseholds(data);
+      setHouseholds(Array.isArray(data) ? data : (data?.items || []));
       if (data.length > 0 && !selectedHouseholdId) {
         setSelectedHouseholdId(data[0].id);
       }

@@ -34,7 +34,7 @@ export default function WarrantiesPage() {
     try {
       const statusParam = filter === "ALL" ? undefined : filter;
       const res = await api.getWarranties(statusParam);
-      setWarranties(res.items || res || []);
+      setWarranties(Array.isArray(res) ? res : (res?.items || []));
     } catch (err: any) {
       setError(err.message || "Failed to load warranties");
     } finally {

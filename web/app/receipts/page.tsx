@@ -21,7 +21,7 @@ export default function ReceiptsPage() {
     setLoading(true);
     try {
       const res = await api.getReceipts({ merchant: search || undefined });
-      setReceipts(res.items || []);
+      setReceipts(Array.isArray(res) ? res : (res?.items || []));
     } catch {
       // Handled by api client
     } finally {
