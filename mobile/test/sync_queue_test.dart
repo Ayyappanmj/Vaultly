@@ -9,7 +9,7 @@ void main() {
 
     setUp(() {
       mockDio = Dio();
-      syncManager = SyncManager(dio: mockDio);
+      syncManager = SyncManager(dio: mockDio, autoSync: false);
     });
 
     test('enqueue creates unique operation with idempotency key', () {

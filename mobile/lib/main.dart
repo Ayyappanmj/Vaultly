@@ -60,7 +60,7 @@ class VaultlyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppConstants.primary,
-          background: AppConstants.background,
+          surface: AppConstants.background,
         ),
       ),
       routerConfig: _router,

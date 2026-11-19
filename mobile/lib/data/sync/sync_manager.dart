@@ -49,9 +49,10 @@ class SyncManager {
   final Dio dio;
   final List<SyncOperation> _queue = [];
   bool _isSyncing = false;
+  final bool autoSync;
   static const int maxRetries = 5;
 
-  SyncManager({required this.dio});
+  SyncManager({required this.dio, this.autoSync = true});
 
   List<SyncOperation> get queue => List.unmodifiable(_queue);
   int get pendingCount => _queue.where((o) => o.status == SyncOpStatus.pending).length;
@@ -78,8 +79,10 @@ class SyncManager {
     );
 
     _queue.add(op);
-    // Trigger opportunistic sync
-    unawaited(processQueue());
+    // Trigger opportunistic sync if enabled
+    if (autoSync) {
+      unawaited(processQueue());
+    }
     return opId;
   }
 
